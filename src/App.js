@@ -61,6 +61,15 @@ class App extends Component {
 
   getResults = () => {
     const query = this.state.query;
+    const caseCorrect =
+      query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
+    const params = {};
+    if (query) {
+      params.name = caseCorrect;
+    } else {
+      params.$limit = 25;
+      params.$offset = 0;
+    }
     axios
       .get(`https://data.nasa.gov/resource/gh4g-9sfh.json`, { params })
       .then(({ data }) => {
@@ -70,19 +79,19 @@ class App extends Component {
   };
 
   render() {
-  return (
-    <div>
+    return (
+      <div>
         <GlobalStyle />
-      <NavBar>Meteorite Explorer</NavBar>
+        <NavBar>Meteorite Explorer</NavBar>
         <Search
           getResults={this.getResults}
           handleChange={this.handleChange}
           query={this.state.query}
         />
         <Results data={this.state.data} />
-    </div>
-  );
-}
+      </div>
+    );
+  }
 }
 
 export default App;
