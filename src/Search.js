@@ -23,8 +23,9 @@ class Search extends Component {
       });
   };
 
+class Search extends Component {
   componentDidMount() {
-    this.getResults();
+    this.props.getResults();
   }
 
   render() {
@@ -33,16 +34,15 @@ class Search extends Component {
         <form
           onSubmit={e => {
             e.preventDefault();
-            this.getResults();
-            this.setState({ query: '' });
+            this.props.getResults();
           }}
         >
           <input
             type='text'
             name='name'
             placeholder='Find a meteorite'
-            value={this.state.query}
-            onChange={this.handleChange}
+            value={this.props.query}
+            onChange={this.props.handleChange}
           />
           <button type='submit'>Search</button>
         </form>
