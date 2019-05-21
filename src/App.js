@@ -1,6 +1,43 @@
 import React, { Component } from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
 import axios from 'axios';
 import Search from './Search';
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  th, td {
+    padding: 15px;
+  }
+
+  td {
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    :hover {
+      overflow: visible; 
+      white-space: normal; 
+    }
+  }
+
+  th {
+    background: #6c7ae0;
+    text-align: left;
+    font-weight: normal;
+    font-size: 1.2rem;
+    color: white;
+    position: relative;
+  }
+`;
 
 const NavBar = styled.div`
   font-size: 1.5em;
@@ -34,6 +71,7 @@ class App extends Component {
   render() {
   return (
     <div>
+        <GlobalStyle />
       <NavBar>Meteorite Explorer</NavBar>
         <Search
           getResults={this.getResults}

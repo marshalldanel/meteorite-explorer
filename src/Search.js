@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import styled from 'styled-components';
 
-class Search extends Component {
-  state = {
-    query: '',
-    data: []
-  };
+const SearchDiv = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
-  handleChange = name => {
-    this.setState({ query: name.target.value });
-  };
+const StyledButton = styled.button`
+  padding: 5px;
+  border: 1px grey solid;
+  font-size: 1.1em;
+  border-radius: 4px;
+  margin: 10px;
+`;
 
-  getResults = () => {
-    const params = {};
-    if (this.state.query) {
-      params.name = this.state.query;
-    }
-    axios
-      .get(`https://data.nasa.gov/resource/gh4g-9sfh.json`, { params })
-      .then(({ data }) => {
-        this.setState({ data });
-      });
-  };
+const StyledInput = styled.input`
+  padding: 5px;
+  border: 1px grey solid;
+  font-size: 1.1em;
+  border-radius: 4px;
+  margin: 10px;
+`;
 
 class Search extends Component {
   componentDidMount() {
@@ -30,23 +29,23 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
+      <SearchDiv>
         <form
           onSubmit={e => {
             e.preventDefault();
             this.props.getResults();
           }}
         >
-          <input
+          <StyledInput
             type='text'
             name='name'
             placeholder='Find a meteorite'
             value={this.props.query}
             onChange={this.props.handleChange}
           />
-          <button type='submit'>Search</button>
+          <StyledButton type='submit'>Search</StyledButton>
         </form>
-      </div>
+      </SearchDiv>
     );
   }
 }
