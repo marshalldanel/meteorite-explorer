@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import axios from 'axios';
 import Search from './Search';
+import Results from './Results';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -78,6 +79,7 @@ class App extends Component {
           handleChange={this.handleChange}
           query={this.state.query}
         />
+        <Results data={this.state.data} />
     </div>
   );
 }
