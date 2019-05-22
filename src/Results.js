@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Meteorite from './Meteorite';
+import Loading from './Loading';
+import Error from './Error';
 
 const styles = css`
   display: contents;
@@ -28,7 +30,7 @@ const Styledtr = styled.tr`
   }
 `;
 
-const Results = ({ data }) => {
+const Results = ({ data, loading, error }) => {
   return (
     <div>
       <StyledTable>
@@ -51,6 +53,9 @@ const Results = ({ data }) => {
           ))}
         </Styledtbody>
       </StyledTable>
+      {(error && <Error error={error} />) ||
+        (loading && <Loading />) ||
+        (!error && data.length < 1 && <Error />)}
     </div>
   );
 };

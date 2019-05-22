@@ -50,8 +50,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       query: '',
-      data: []
+      data: [],
+      error: ''
     };
   }
 
@@ -72,8 +74,13 @@ class App extends Component {
     }
     axios
       .get(`https://data.nasa.gov/resource/gh4g-9sfh.json`, { params })
+      // .then(res => console.log(res))
       .then(({ data }) => {
-        this.setState({ data });
+        this.setState({ data, loading: false });
+      })
+      .catch(error => {
+        this.setState({ error });
+        // this.setState({error})
       });
     this.setState({ query: '' });
   };
@@ -88,7 +95,7 @@ class App extends Component {
           handleChange={this.handleChange}
           query={this.state.query}
         />
-        <Results data={this.state.data} />
+        <Results {...this.state} />
       </div>
     );
   }
