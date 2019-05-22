@@ -30,7 +30,7 @@ const Styledtr = styled.tr`
   }
 `;
 
-const Results = ({ data, loading, error }) => {
+const Results = ({ data, loading, error, currentPage }) => {
   return (
     <div>
       <StyledTable>
@@ -48,7 +48,7 @@ const Results = ({ data, loading, error }) => {
           </Styledtr>
         </Styledthead>
         <Styledtbody>
-          {data.map((meteor, index) => (
+          {data.slice(currentPage, currentPage + 25).map((meteor, index) => (
             <Meteorite data={meteor} key={index} Styledtr={Styledtr} />
           ))}
         </Styledtbody>

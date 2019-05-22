@@ -12,6 +12,7 @@ const StyledButton = styled.button`
   font-size: 1.1em;
   border-radius: 4px;
   margin: 10px;
+  cursor: pointer;
 `;
 
 const StyledInput = styled.input`
@@ -23,10 +24,6 @@ const StyledInput = styled.input`
 `;
 
 class Search extends Component {
-  componentDidMount() {
-    this.props.getResults();
-  }
-
   render() {
     return (
       <SearchDiv>
