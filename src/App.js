@@ -69,16 +69,19 @@ class App extends Component {
 
   getResults = () => {
     const query = this.state.query;
-    const caseCorrect =
-      query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
+    const caseCorrect = query
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
     const params = {};
     if (query) {
       params.name = caseCorrect;
+    } else {
+      params.$limit = 50000;
+      params.$order = 'name';
     }
-    // } else {
-    //   params.$limit = 25;
-    //   params.$offset = 0;
-    // }
+
     axios
       .get(`https://data.nasa.gov/resource/gh4g-9sfh.json`, { params })
       .then(({ data }) => {
