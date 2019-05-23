@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const SearchDiv = styled.div`
@@ -7,44 +7,42 @@ const SearchDiv = styled.div`
 `;
 
 const StyledButton = styled.button`
-  padding: 5px;
   border: 1px grey solid;
-  font-size: 1.1em;
   border-radius: 4px;
-  margin: 10px;
   cursor: pointer;
+  font-size: 1.1em;
+  margin: 10px;
+  padding: 5px;
 `;
 
 const StyledInput = styled.input`
-  padding: 5px;
   border: 1px grey solid;
-  font-size: 1.1em;
   border-radius: 4px;
+  font-size: 1.1em;
   margin: 10px;
+  padding: 5px;
 `;
 
-class Search extends Component {
-  render() {
-    return (
-      <SearchDiv>
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            this.props.getResults();
-          }}
-        >
-          <StyledInput
-            type='text'
-            name='name'
-            placeholder='Find a meteorite'
-            value={this.props.query}
-            onChange={this.props.handleChange}
-          />
-          <StyledButton type='submit'>Search</StyledButton>
-        </form>
-      </SearchDiv>
-    );
-  }
-}
+const Search = ({ getResults, handleChange, query }) => {
+  return (
+    <SearchDiv>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          getResults();
+        }}
+      >
+        <StyledInput
+          type='text'
+          name='name'
+          placeholder='Find a meteorite'
+          value={query}
+          onChange={handleChange}
+        />
+        <StyledButton type='submit'>Search</StyledButton>
+      </form>
+    </SearchDiv>
+  );
+};
 
 export default Search;

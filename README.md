@@ -1,10 +1,16 @@
 # Meteorite Explorer
 
-## An application that provides users with the ability to explore meteorite strikes across the globe by searching the Meteorite Landing dataset on the Nasa Open Data Portal.
+## An web app to explore meteorite strikes across the globe!
+
+Uses [Nasa Open Data Portal](https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh) as the main API along with React on the front-end
 
 ### Features:
 
-- [ ] Meteorite landings are displayed in alphabetical order on the name of the landing location.
-- [ ] Users may scroll through the list of landings, or use the search box to search for a names that include the entered search term.
-- [ ] Searches are case independent. This means the user may type searches in lower, upper, or mixed case (like Case, case, or cASe) and the same results will be returned.
-- [ ] The results list can be reset to its original contents by clearing the search box and clicking the 'Search' button.
+- [x] Meteorites displayed based on landing location name
+- [x] Scroll through the list of landings or search by name
+
+#### TO DO
+
+- [ ] Other filter controls
+- [ ] Tests
+- [ ] Responsive
