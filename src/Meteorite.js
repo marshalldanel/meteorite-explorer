@@ -13,7 +13,7 @@ const Meteorite = ({
         <td>{recclass}</td>
         <td>{mass}</td>
         <td>{fall}</td>
-        <td>{year.substring(0, 4)}</td>
+        <td>{year ? year.substring(0, 4) : ''}</td>
         <td>{reclat}</td>
         <td>{reclong}</td>
       </Styledtr>
