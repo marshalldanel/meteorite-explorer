@@ -1,21 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const SearchDiv = styled.div`
+const Div = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const StyledButton = styled.button`
+const Button = styled.button`
   border: 1px grey solid;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1.1em;
   margin: 10px;
   padding: 5px;
+  :focus {
+    outline: 0;
+  }
 `;
 
-const StyledInput = styled.input`
+const Input = styled.input`
   border: 1px grey solid;
   border-radius: 4px;
   font-size: 1.1em;
@@ -23,26 +27,33 @@ const StyledInput = styled.input`
   padding: 5px;
 `;
 
-const Search = ({ getResults, handleChange, query }) => {
+const Search = ({ resetSearch, searchResults, handleChange, query }) => {
   return (
-    <SearchDiv>
+    <Div>
+      <Button onClick={resetSearch}>Reset</Button>
       <form
         onSubmit={e => {
           e.preventDefault();
-          getResults();
+          searchResults();
         }}
       >
-        <StyledInput
+        <Input
           type='text'
           name='name'
           placeholder='Find a meteorite'
           value={query}
           onChange={handleChange}
         />
-        <StyledButton type='submit'>Search</StyledButton>
+        <Button type='submit'>Search</Button>
       </form>
-    </SearchDiv>
+    </Div>
   );
+};
+
+Search.propTypes = {
+  searchResults: PropTypes.func,
+  handleChange: PropTypes.func,
+  query: PropTypes.string
 };
 
 export default Search;
