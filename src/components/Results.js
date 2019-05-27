@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Meteorite from './Meteorite';
 import Loading from './Loading';
@@ -83,6 +84,13 @@ const Results = ({ currentPage, data, error, loading }) => {
         (!error && data.length < 1 && <Error />)}
     </div>
   );
+};
+
+Results.propTypes = {
+  currentPage: PropTypes.number,
+  data: PropTypes.array,
+  error: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 export default Results;

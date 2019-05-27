@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Meteorite = ({
   data: { fall, id, mass, name, nametype, recclass, reclat, reclong, year },
@@ -20,6 +21,18 @@ const Meteorite = ({
       </Tr>
     </>
   );
+};
+
+Meteorite.propTypes = {
+  name: PropTypes.string,
+  id: PropTypes.string,
+  nametype: PropTypes.string,
+  rcclass: PropTypes.string,
+  mass: PropTypes.string,
+  fall: PropTypes.string,
+  year: PropTypes.string,
+  reclat: PropTypes.string,
+  reclong: PropTypes.string
 };
 
 export default Meteorite;

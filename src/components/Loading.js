@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   display: flex;
-  justify-content: center;
   font-size: 2em;
+  padding-bottom: 25px;
+  justify-content: center;
 `;
 
 const Loading = () => {
