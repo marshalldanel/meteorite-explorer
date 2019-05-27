@@ -1,12 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 2em;
+  color: #d33232;
+`;
 
 const Error = ({ error }) => {
   return error ? (
-    <>
-      Uh Oh! Looks like you have an error: {error.message} Please try again 😄
-    </>
+    <Div>Something went wrong 🛠 Please try again</Div>
   ) : (
-    <>No meteorite found with that name ☹️ Please try another name</>
+    <Div>No results found</Div>
   );
 };
 
