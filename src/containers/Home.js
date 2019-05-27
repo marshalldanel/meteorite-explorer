@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Search from '../Search';
+import Search from '../components/Search';
 import Results from '../components/Results';
 import Pagination from '../components/Pagination';
 
@@ -11,43 +11,73 @@ class Home extends Component {
       loading: true,
       query: '',
       data: [],
+      error: false,
       currentPage: 0,
       count: 0
     };
-  }
-
-  componentDidMount() {
-    this.getResults();
   }
 
   handleChange = name => {
     this.setState({ query: name.target.value });
   };
 
-  getResults = () => {
-    const query = this.state.query;
-    const caseCorrect = query
-      .toLowerCase()
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-    const params = {};
-    if (query) {
-      params.name = caseCorrect;
+  getResults = args => {
+    const params = { $limit: 50, $order: 'name', ...args };
+    const path = `https://data.nasa.gov/resource/gh4g-9sfh.json`;
+
+    if (args) {
+      axios.get(path, { params }).then(({ data }) => {
+        this.setState(prevState => ({
+          data: [...prevState.data, ...data],
+          currentPage: prevState.currentPage + 50
+        }));
+      });
     } else {
-      params.$limit = 50000;
-      params.$order = 'name';
+      axios
+        .all([
+          axios.get(path, { params: { $select: 'count(name)' } }),
+          axios.get(path, { params })
+        ])
+        .then(
+          axios.spread((count, data) => {
+            this.setState({
+              count: parseInt(count.data[0].count_name),
+              data: data.data,
+              loading: false,
+              currentPage: 0
+            });
+          })
+        );
+    }
+  };
+
+  searchResults = () => {
+    const path = `https://data.nasa.gov/resource/gh4g-9sfh.json`;
+    const { query } = this.state;
+    const params = {
+      $where: `upper(name) like upper('%${query.trim()}%')`,
+      $order: 'name',
+      $limit: 50000
+    };
+
+    if (query === '') {
+      this.getResults();
     }
 
-    axios
-      .get(`https://data.nasa.gov/resource/gh4g-9sfh.json`, { params })
-      .then(({ data }) => {
-        this.setState({ data, loading: false, currentPage: 0 });
+    axios.get(path, { params }).then(({ data }) =>
+      this.setState({
+        data,
+        count: data.length,
+        currentPage: 0
       })
-      .catch(error => {
-        this.setState({ error });
-      });
-    this.setState({ query: '' });
+    );
+  };
+
+  resetSearch = () => {
+    this.setState({
+      query: ''
+    });
+    this.getResults();
   };
 
   prevPage = () => {
@@ -73,20 +103,30 @@ class Home extends Component {
     }
   };
 
+  componentDidMount() {
+    this.getResults();
+  }
+
+  componentDidCatch(error, info) {
+    this.setState({ error: true });
+    console.log(error, info);
+  }
+
   render() {
     return (
       <div>
         <Search
-          getResults={this.getResults}
+          searchResults={this.searchResults}
+          resetSearch={this.resetSearch}
           handleChange={this.handleChange}
           query={this.state.query}
         />
+        <Results {...this.state} />
         <Pagination
           nextPage={this.nextPage}
           prevPage={this.prevPage}
           {...this.state}
         />
-        <Results {...this.state} />
       </div>
     );
   }
