@@ -74,7 +74,7 @@ const Results = ({ currentPage, data, error, loading }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {data.slice(currentPage, currentPage + 25).map((meteor, index) => (
+          {data.slice(currentPage, currentPage + 50).map((meteor, index) => (
             <Meteorite data={meteor} key={index} Tr={Tr} Td={Td} />
           ))}
         </Tbody>

@@ -7,7 +7,6 @@ const Button = styled.button`
   cursor: pointer;
   margin: 0 20px;
   padding: 10px;
-  cursor: pointer;
 
   :focus {
     outline: 0;
@@ -20,11 +19,18 @@ const Div = styled.div`
   padding: 0 0 25px 0;
 `;
 
-const Pagination = ({ nextPage, prevPage }) => {
+const Pagination = ({ nextPage, prevPage, count, currentPage }) => {
   return (
     <Div>
-      <Button onClick={prevPage}>Previous Page</Button>
-      <Button onClick={nextPage}>Next Page</Button>
+      <Button disabled={currentPage < 50} onClick={prevPage}>
+        Previous Page
+      </Button>
+      <p>
+        Page {currentPage / 50 + 1} of {Math.round(count / 50) || 1}
+      </p>
+      <Button disabled={currentPage + 50 > count} onClick={nextPage}>
+        Next Page
+      </Button>
     </Div>
   );
 };

@@ -13,11 +13,11 @@ const Meteorite = ({
         <Td>{id}</Td>
         <Td>{nametype}</Td>
         <Td>{recclass}</Td>
-        <Td>{mass}</Td>
+        <Td>{parseFloat(mass).toFixed(1)}</Td>
         <Td>{fall}</Td>
         <Td>{year ? year.substring(0, 4) : ''}</Td>
-        <Td>{reclat}</Td>
-        <Td>{reclong}</Td>
+        <Td>{parseFloat(reclat).toFixed(3)}</Td>
+        <Td>{parseFloat(reclong).toFixed(3)}</Td>
       </Tr>
     </>
   );

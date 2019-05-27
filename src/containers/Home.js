@@ -11,8 +11,8 @@ class Home extends Component {
       loading: true,
       query: '',
       data: [],
-      error: '',
-      currentPage: 0
+      currentPage: 0,
+      count: 0
     };
   }
 
@@ -53,16 +53,23 @@ class Home extends Component {
   prevPage = () => {
     if (this.state.currentPage > 1) {
       this.setState(prevState => ({
-        currentPage: prevState.currentPage - 25
+        currentPage: prevState.currentPage - 50
       }));
+      window.scrollTo(0, 0);
     }
   };
 
   nextPage = () => {
-    if (this.state.currentPage + 25 < this.state.data.length) {
+    const { data, currentPage, count } = this.state;
+
+    if (data.length > currentPage + 50) {
       this.setState(prevState => ({
-        currentPage: prevState.currentPage + 25
+        currentPage: prevState.currentPage + 50
       }));
+      window.scrollTo(0, 0);
+    } else if (currentPage + 50 < count) {
+      this.getResults({ $offset: `${currentPage + 50}` });
+      window.scrollTo(0, 0);
     }
   };
 
