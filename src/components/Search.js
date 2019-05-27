@@ -30,7 +30,6 @@ const Input = styled.input`
 const Search = ({ resetSearch, searchResults, handleChange, query }) => {
   return (
     <Div>
-      <Button onClick={resetSearch}>Reset</Button>
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -45,6 +44,7 @@ const Search = ({ resetSearch, searchResults, handleChange, query }) => {
           onChange={handleChange}
         />
         <Button type='submit'>Search</Button>
+        <Button onClick={resetSearch}>Reset</Button>
       </form>
     </Div>
   );
