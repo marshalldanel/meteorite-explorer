@@ -2,26 +2,41 @@ import React from 'react';
 import styled from 'styled-components';
 
 const NavBar = styled.div`
-  text-align: center;
-  padding-top: 30px;
   padding-bottom: 10px;
+  padding-top: 30px;
+  text-align: center;
+`;
+
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  @media (max-width: 490px) {
+    flex-direction: column;
+  }
 `;
 
 const P = styled.p`
   font-size: 1.5em;
+  margin: 15px;
+  @media (max-width: 490px) {
+    margin: 0 0 10px 0;
+  }
 `;
 
 const A = styled.a`
+  color: black;
   font-size: 1.2em;
   margin: 0 10px;
   text-decoration: none;
-  color: black;
 `;
 
 const Nav = () => {
   return (
     <NavBar>
-      <P>Meteorite Explorer | THE SKY IS FALLING</P>
+      <Title>
+        <P>Meteorite Explorer</P>
+        <P>THE SKY IS FALLING</P>
+      </Title>
       <>
         <A
           href='https://github.com/marshalldanel/meteorite-explorer'

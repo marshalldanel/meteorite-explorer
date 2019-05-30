@@ -7,6 +7,18 @@ const Div = styled.div`
   justify-content: center;
 `;
 
+const Form = styled.form`
+  display: flex;
+  @media (max-width: 385px) {
+    flex-direction: column;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Button = styled.button`
   border: 1px grey solid;
   border-radius: 4px;
@@ -30,7 +42,7 @@ const Input = styled.input`
 const Search = ({ resetSearch, searchResults, handleChange, query }) => {
   return (
     <Div>
-      <form
+      <Form
         onSubmit={e => {
           e.preventDefault();
           searchResults();
@@ -43,9 +55,11 @@ const Search = ({ resetSearch, searchResults, handleChange, query }) => {
           value={query}
           onChange={handleChange}
         />
-        <Button type='submit'>Search</Button>
-        <Button onClick={resetSearch}>Reset</Button>
-      </form>
+        <ButtonContainer>
+          <Button type='submit'>Search</Button>
+          <Button onClick={resetSearch}>Reset</Button>
+        </ButtonContainer>
+      </Form>
     </Div>
   );
 };
