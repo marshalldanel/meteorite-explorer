@@ -1,89 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import InfoCard from './InfoCard';
+import MapCard from './MapCard';
+
+const Div = styled.div``;
+
+const Body = styled.div`
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: all 0.7s linear;
+  transform: ${props => {
+    if (props.mapOpen) {
+      return 'rotateY(180deg)';
+    }
+  }};
+`;
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: 1;
+  margin: 32px auto;
+  max-width: 720px;
+  height: 260px;
 `;
 
-const Box = styled.div`
-  border: 1px solid black;
-  border-radius: 5px;
-  box-shadow: 5px 5px 5px grey;
-  margin: 10px 25px;
-  max-width: 500px;
-  min-width: 250px;
-  padding: 10px;
-`;
+class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mapOpen: false
+    };
+  }
 
-const P = styled.p`
-  margin: 3px;
-`;
+  openMap = () => {
+    this.setState(prevState => ({
+      mapOpen: !prevState.mapOpen
+    }));
+  };
 
-const LineInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const Card = ({
-  data: { fall, id, mass, name, nametype, recclass, reclat, reclong, year }
-}) => {
-  return (
-    <Container>
-      <Box>
-        <LineInfo>
-          <P>Name</P>
-          <P>{name}</P>
-        </LineInfo>
-        <LineInfo>
-          <P>Id</P>
-          <P>{id}</P>
-        </LineInfo>
-        <LineInfo>
-          <P>Name TyPe</P>
-          <P>{nametype}</P>
-        </LineInfo>
-        <LineInfo>
-          <P>Rec Class</P>
-          <P>{recclass}</P>
-        </LineInfo>
-        <LineInfo>
-          <P>Mass (g)</P>
-          <P>{parseFloat(mass).toFixed(1)}</P>
-        </LineInfo>
-        <LineInfo>
-          <P>Fall</P>
-          <P>{fall}</P>
-        </LineInfo>
-        <LineInfo>
-          <P>Year</P>
-          <P>{year ? year.substring(0, 4) : ''}</P>
-        </LineInfo>
-        <LineInfo>
-          <P>Latitude</P>
-          <P>{parseFloat(reclat).toFixed(3)}</P>
-        </LineInfo>
-        <LineInfo>
-          <P>Longitude</P>
-          <P>{parseFloat(reclong).toFixed(3)}</P>
-        </LineInfo>
-      </Box>
-    </Container>
-  );
-};
+  render() {
+    return (
+      <Container onClick={this.openMap}>
+        <Body mapOpen={this.state.mapOpen}>
+          <Div>
+            <InfoCard data={this.props.data} />
+          </Div>
+          <MapCard data={this.props.data} />
+        </Body>
+      </Container>
+    );
+  }
+}
 
 Card.propTypes = {
-  name: PropTypes.string,
-  id: PropTypes.string,
-  nametype: PropTypes.string,
-  rcclass: PropTypes.string,
-  mass: PropTypes.string,
-  fall: PropTypes.string,
-  year: PropTypes.string,
-  reclat: PropTypes.string,
-  reclong: PropTypes.string
+  data: PropTypes.object
 };
 
 export default Card;
