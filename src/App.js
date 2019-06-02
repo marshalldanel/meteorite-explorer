@@ -7,11 +7,18 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
-
   html,
   body {
     padding: 0;
     margin: 0;
+  }
+  body {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 100%;
+    background-color: #fff;
+  }
+  .leaflet-container {
+    height: 220px;
   }
 `;
 
