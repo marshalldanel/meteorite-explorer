@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: #fff;
   }
   .leaflet-container {
-    height: 220px;
+    height: 230px;
   }
 `;
 

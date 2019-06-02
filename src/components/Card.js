@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import InfoCard from './InfoCard';
 import MapCard from './MapCard';
 
-const Div = styled.div``;
-
 const Body = styled.div`
   width: 100%;
   height: 100%;
@@ -25,7 +23,7 @@ const Container = styled.div`
   z-index: 1;
   margin: 32px auto;
   max-width: 720px;
-  height: 260px;
+  height: 265px;
 `;
 
 class Card extends Component {
@@ -46,9 +44,9 @@ class Card extends Component {
     return (
       <Container onClick={this.openMap}>
         <Body mapOpen={this.state.mapOpen}>
-          <Div>
+          <div>
             <InfoCard data={this.props.data} />
-          </Div>
+          </div>
           <MapCard data={this.props.data} />
         </Body>
       </Container>

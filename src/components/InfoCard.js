@@ -3,22 +3,24 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Container = styled.div`
+  backface-visibility: hidden;
   position: absolute;
   top: 0;
   overflow: hidden;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
 `;
 
 const Box = styled.div`
   border: 1px solid black;
   border-radius: 5px;
   box-shadow: 5px 5px 5px grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   margin: 10px 25px;
-  max-width: 500px;
-  min-width: 250px;
-  padding: 10px;
+  height: 250px;
+  padding: 8px;
 `;
 
 const P = styled.p`

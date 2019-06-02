@@ -19,7 +19,7 @@ const Box = styled.div`
   box-shadow: 5px 5px 5px grey;
   margin: 10px 25px;
   min-width: 250px;
-  height: 240px;
+  height: 250px;
   padding: 10px;
 `;
 
