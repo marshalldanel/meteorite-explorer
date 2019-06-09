@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import InfoCard from './InfoCard';
@@ -26,33 +26,33 @@ const Container = styled.div`
   height: 265px;
 `;
 
-class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mapOpen: false
-    };
-  }
+const usePrevious = value => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
 
-  openMap = () => {
-    this.setState(prevState => ({
-      mapOpen: !prevState.mapOpen
-    }));
-  };
+const Card = ({ data }) => {
+  const [mapOpen, setMapOpen] = useState(false);
+  const prevName = usePrevious(data.name);
 
-  render() {
-    return (
-      <Container onClick={this.openMap}>
-        <Body mapOpen={this.state.mapOpen}>
-          <div>
-            <InfoCard data={this.props.data} />
-          </div>
-          <MapCard data={this.props.data} />
-        </Body>
-      </Container>
-    );
-  }
-}
+  useEffect(() => {
+    if (data.name !== prevName) setMapOpen(false);
+  }, [data.name, prevName]);
+
+  return (
+    <Container onClick={() => setMapOpen(prevState => !prevState)}>
+      <Body mapOpen={mapOpen}>
+        <div>
+          <InfoCard data={data} />
+        </div>
+        <MapCard data={data} />
+      </Body>
+    </Container>
+  );
+};
 
 Card.propTypes = {
   data: PropTypes.object

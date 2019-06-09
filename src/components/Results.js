@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Meteorite from './Meteorite';
@@ -63,76 +63,60 @@ const CardTable = styled.div`
   justify-content: center;
 `;
 
-class Results extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDesktop: false
+const Results = ({ currentPage, data, error, loading }) => {
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
     };
+    // Empty array ensures effect is run + cleaned up on mount/unmount
+  }, []);
 
-    this.updatePredicate = this.updatePredicate.bind(this);
-  }
-  componentDidMount() {
-    this.updatePredicate();
-    window.addEventListener('resize', this.updatePredicate);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updatePredicate);
-  }
-
-  updatePredicate() {
-    this.setState({ isDesktop: window.innerWidth > 1024 });
-  }
-
-  render() {
-    const { currentPage, data, error, loading } = this.props;
-    const isDesktop = this.state.isDesktop;
-
-    return (
-      <div>
-        {isDesktop ? (
-          <div>
-            <Table>
-              <Thead>
-                <Tr>
-                  <Th>Name</Th>
-                  <Th>Id</Th>
-                  <Th>Name Type</Th>
-                  <Th>Rec Class</Th>
-                  <Th>Mass (g)</Th>
-                  <Th>Fall</Th>
-                  <Th>Year</Th>
-                  <Th>Latitude</Th>
-                  <Th>Longitude</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {data
-                  .slice(currentPage, currentPage + 50)
-                  .map((meteor, index) => (
-                    <Meteorite data={meteor} key={index} Tr={Tr} Td={Td} />
-                  ))}
-              </Tbody>
-            </Table>
-            {(error && <Error error={error} />) ||
-              (loading && <Loading />) ||
-              (!error && data.length < 1 && <Error />)}
-          </div>
-        ) : (
-          <CardTable>
-            {data.slice(currentPage, currentPage + 50).map((meteor, index) => (
-              <Card data={meteor} key={index} />
-            ))}
-            {(error && <Error error={error} />) ||
-              (loading && <Loading />) ||
-              (!error && data.length < 1 && <Error />)}
-          </CardTable>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {width > 1024 ? (
+        <div>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>Name</Th>
+                <Th>Id</Th>
+                <Th>Name Type</Th>
+                <Th>Rec Class</Th>
+                <Th>Mass (g)</Th>
+                <Th>Fall</Th>
+                <Th>Year</Th>
+                <Th>Latitude</Th>
+                <Th>Longitude</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data
+                .slice(currentPage, currentPage + 50)
+                .map((meteor, index) => (
+                  <Meteorite data={meteor} key={index} Tr={Tr} Td={Td} />
+                ))}
+            </Tbody>
+          </Table>
+          {(error && <Error error={error} />) ||
+            (loading && <Loading />) ||
+            (!error && data.length < 1 && <Error />)}
+        </div>
+      ) : (
+        <CardTable>
+          {data.slice(currentPage, currentPage + 50).map((meteor, index) => (
+            <Card data={meteor} key={index} />
+          ))}
+          {(error && <Error error={error} />) ||
+            (loading && <Loading />) ||
+            (!error && data.length < 1 && <Error />)}
+        </CardTable>
+      )}
+    </div>
+  );
+};
 
 Results.propTypes = {
   currentPage: PropTypes.number,
