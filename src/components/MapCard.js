@@ -24,6 +24,12 @@ const Box = styled.div`
 `;
 
 const MapCard = ({ data: { reclat, reclong } }) => {
+  if (!reclat) {
+    reclat = 0.0;
+  }
+  if (!reclong) {
+    reclong = 0.0;
+  }
   return (
     <Container>
       <Box>
@@ -32,7 +38,7 @@ const MapCard = ({ data: { reclat, reclong } }) => {
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
-          <Marker position={[reclat, reclong]} />
+          {reclat && reclong && <Marker position={[reclat, reclong]} />}
         </Map>
       </Box>
     </Container>

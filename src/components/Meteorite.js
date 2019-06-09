@@ -16,8 +16,8 @@ const Meteorite = ({
         <Td>{parseFloat(mass).toFixed(1)}</Td>
         <Td>{fall}</Td>
         <Td>{year ? year.substring(0, 4) : ''}</Td>
-        <Td>{parseFloat(reclat).toFixed(3)}</Td>
-        <Td>{parseFloat(reclong).toFixed(3)}</Td>
+        <Td>{reclat ? parseFloat(reclat).toFixed(3) : 'N/A'}</Td>
+        <Td>{reclong ? parseFloat(reclong).toFixed(3) : 'N/A'}</Td>
       </Tr>
     </>
   );

@@ -69,11 +69,11 @@ const InfoCard = ({
         </LineInfo>
         <LineInfo>
           <P>Latitude</P>
-          <P>{parseFloat(reclat).toFixed(3)}</P>
+          <P>{reclat ? parseFloat(reclat).toFixed(3) : 'N/A'}</P>
         </LineInfo>
         <LineInfo>
           <P>Longitude</P>
-          <P>{parseFloat(reclong).toFixed(3)}</P>
+          <P>{reclong ? parseFloat(reclong).toFixed(3) : 'N/A'}</P>
         </LineInfo>
       </Box>
     </Container>
